@@ -25,7 +25,7 @@ const initializeDBAndServer = async () => {
 };
 initializeDBAndServer();
 
-//Get Books API
+//authenticateToken
 const authenticateToken = (request, response, next) => {
   let jwtToken;
   const authHeader = request.headers["authorization"];
@@ -41,6 +41,7 @@ const authenticateToken = (request, response, next) => {
         response.status(401);
         response.send("Invalid JWT Token");
       } else {
+        request.username = payload.username;
         console.log(payload);
         next();
       }
